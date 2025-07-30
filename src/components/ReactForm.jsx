@@ -18,9 +18,11 @@ function ReactForm() {
 
     const onSubmit = async (data) => {
         try {
-            const backendURL = import.meta.env.VITE_BACKEND_URL
+            const backendURL = import.meta.env.VITE_BACKEND_URL.replace(/\/$/, '')
+            const url = `${backendURL}/submit`
 
-            let response = await fetch(`${backendURL}/submit`,
+
+            let response = await fetch(url,
                 {
                     method: "POST",
                     headers: {
@@ -29,7 +31,7 @@ function ReactForm() {
                     body: JSON.stringify(data)
                 }
             )
-            if (!response.ok){
+            if (!response.ok) {
                 throw new Error(`server error`)
             }
             alert('form submitted successfully')
